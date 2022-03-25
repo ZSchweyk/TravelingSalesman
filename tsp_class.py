@@ -14,7 +14,7 @@ class TravelingSalesman:
         paths = {}
 
         for permutation in all_permutations:
-            for node in permutation:
+            for i, node in enumerate(permutation):
                 pass
 
 
