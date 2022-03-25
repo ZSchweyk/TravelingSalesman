@@ -1,4 +1,5 @@
 from node_class import Node
+from itertools import permutations
 
 
 class TravelingSalesman:
@@ -8,7 +9,14 @@ class TravelingSalesman:
 
     def brute_force(self, **kwargs):
         method = kwargs["method"]
-        start = kwargs["start"]
-        for node in self.nodes:
-            if node not in self.visited:
+        start: Node = kwargs["start"]
+        all_permutations = permutations([node for node in self.nodes if node != start])
+        paths = {}
+
+        for permutation in all_permutations:
+            for node in permutation:
                 pass
+
+
+
+
