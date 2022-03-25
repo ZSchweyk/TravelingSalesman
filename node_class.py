@@ -14,8 +14,9 @@ class Node:
         else:
             raise Exception(f"\"{name}\" already exists.")
 
-    def cost_to(self, node, cost: float):
+    def cost_to(self, node, **kwargs):
         """Accepts the node object or node.name as node, and modifies the branch of self accordingly."""
+        cost = {"distance": kwargs["distance"], "time": kwargs["time"]}
         if isinstance(node, Node):
             self.branches[node] = cost
             if self.bi_directional: node.branches[self] = cost
