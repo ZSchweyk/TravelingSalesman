@@ -30,3 +30,4 @@ class Node:
     def __repr__(self):
         """I added this so that printing out objects would look nicer."""
         return self.name
+
