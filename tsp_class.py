@@ -1,5 +1,6 @@
 from node_class import Node
 
+
 class TravelingSalesman:
     def __init__(self, nodes: list[Node]):
         self.nodes = nodes
@@ -11,4 +12,3 @@ class TravelingSalesman:
         for node in self.nodes:
             if node not in self.visited:
                 pass
-
