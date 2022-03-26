@@ -1,4 +1,5 @@
 from node_class import Node
+from tsp_class import TravelingSalesman
 
 a = Node("A")
 b = Node("B")
@@ -16,4 +17,6 @@ b.cost_to(d, distance=11, time=11)
 
 c.cost_to(d, distance=17, time=17)
 
+tsp = TravelingSalesman([a, b, c, d])
+print(tsp.brute_force(start=a, method="distance"))
 
