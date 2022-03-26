@@ -22,7 +22,11 @@ class TravelingSalesman:
                 next_node: Node = permutation[i+1]
 
                 total_cost += current_node.branches[next_node][method]
+
             total_cost += start.branches[permutation[0]][method] + permutation[-1].branches[start][method]
+            paths[permutation] = total_cost
+
+        return paths
 
 
 
