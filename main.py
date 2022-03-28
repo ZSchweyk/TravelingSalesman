@@ -1,6 +1,12 @@
+from itertools import combinations
+
+from selenium.webdriver.common.by import By
+
 from node_class import Node
 from tsp_class import TravelingSalesman
 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 colleges = [
     "Harvard University",
@@ -17,10 +23,18 @@ colleges = [
     "Brown University",
 ]
 
-google_maps_searches = []
-for i, college in enumerate(colleges):
-    for j in range(i + 1, len(colleges)):
-        google_maps_searches.append((college, colleges[j]))
+all_combinations = list(combinations(colleges, 2))
+print(all_combinations)
+
+browser = webdriver.Firefox()
+browser.get("https://maps.google.com")
+search_box = browser.find_element(value="searchboxinput")
+
+for combination in all_combinations:
+    search_box.send_keys(f"{combination[0]} to {combination[1]}")
+    search_box.send_keys(Keys.ENTER)
+
+    browser.find_element(by=By.jstcache, value="1115")
 
 
 
@@ -44,4 +58,3 @@ c.cost_to(d, distance=17, time=17)
 
 tsp = TravelingSalesman([a, b, c, d])
 print(tsp.brute_force(start=a, method="distance"))
-
