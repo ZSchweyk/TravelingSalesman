@@ -26,7 +26,9 @@ class TravelingSalesman:
             total_cost += start.branches[permutation[0]][method] + permutation[-1].branches[start][method]
             paths[permutation] = total_cost
 
-        return min(paths, key=paths.get)
+        shortest_path = min(paths, key=paths.get)
+        shortest_path_cost = paths[shortest_path]
+        return shortest_path, shortest_path_cost
 
 
 
