@@ -1,6 +1,32 @@
 from node_class import Node
 from tsp_class import TravelingSalesman
 
+
+colleges = [
+    "Harvard University",
+    "Princeton University",
+    "Yale University",
+    "University of Rochester",
+    "Rochester Institute of Technology",
+    "Johns Hopkins",
+    "Georgia Institute of Technology",
+    "Cornell University",
+    "University of Pennsylvania",
+    "Tufts University",
+    "Duke University",
+    "Brown University",
+]
+
+google_maps_searches = []
+for i, college in enumerate(colleges):
+    for j in range(i + 1, len(colleges)):
+        search = college + " to " + colleges[j]
+        google_maps_searches.append(search)
+
+
+
+
+
 a = Node("A")
 b = Node("B")
 c = Node("C")
