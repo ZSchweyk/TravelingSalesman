@@ -1,49 +1,32 @@
 import time
 from itertools import combinations
-
-# from selenium.webdriver.common.by import By
-
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
-#
-# colleges = [
-#     "Harvard University",
-#     "Princeton University",
-#     "Yale University",
-#     "University of Rochester",
-#     "Rochester Institute of Technology",
-#     "Johns Hopkins",
-#     "Georgia Institute of Technology",
-#     "Cornell University",
-#     "University of Pennsylvania",
-#     "Tufts University",
-#     "Duke University",
-#     "Brown University",
-# ]
-#
-# all_combinations = list(combinations(colleges, 2))
-# print(all_combinations)
-#
-# browser = webdriver.Chrome()
-# browser.get("https://maps.google.com")
-# search_box = browser.find_element(value="searchboxinput")
-# time.sleep(5)
-#
-#
-# for combination in all_combinations:
-#     search_box.send_keys(f"{combination[0]} to {combination[1]}")
-#     search_box.send_keys(Keys.ENTER)
-#     time.sleep(5)
-#
-#     # hrs = browser.find_element(by=By.XPATH, value='//*[@jstcache="1115"]/span')
-#     hrs = browser.find_element_by_xpath('//span[@jstcache="1115"]')
-#     time.sleep(5)
-#     print(hrs.text)
-#     break
-
+import requests, json
+# https://www.geeksforgeeks.org/python-calculate-distance-duration-two-places-using-google-distance-matrix-api/
 
 from node_class import Node
 from tsp_class import TravelingSalesman
+
+
+colleges = [
+    "Harvard University",
+    "Princeton University",
+    "Yale University",
+    "University of Rochester",
+    "Rochester Institute of Technology",
+    "Johns Hopkins",
+    "Georgia Institute of Technology",
+    "Cornell University",
+    "University of Pennsylvania",
+    "Tufts University",
+    "Duke University",
+    "Brown University",
+]
+
+all_combinations = list(combinations(colleges, 2))
+print(all_combinations)
+
+
+
 
 
 a = Node("A")
