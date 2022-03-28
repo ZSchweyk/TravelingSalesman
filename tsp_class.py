@@ -7,7 +7,7 @@ class TravelingSalesman:
         self.nodes = nodes
         self.visited = []
 
-    def better_brute_force(self, **kwargs):
+    def brute_force(self, **kwargs):
         convert_str_to_node = lambda string: [node for node in self.nodes if node.name == kwargs[string]][0]
         if isinstance(kwargs["start"], str):
             start = convert_str_to_node["start"]

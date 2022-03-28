@@ -63,5 +63,4 @@ b.cost_to(d, distance=11, time=11)
 c.cost_to(d, distance=17, time=17)
 
 tsp = TravelingSalesman([a, b, c, d])
-print(tsp.brute_force(start=a, method="distance"))
-print(tsp.better_brute_force(start=a, end=a, method="distance"))
+print(tsp.brute_force(start=a, end=a, method="distance"))
