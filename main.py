@@ -1,3 +1,4 @@
+import time
 from itertools import combinations
 
 from selenium.webdriver.common.by import By
@@ -29,12 +30,19 @@ print(all_combinations)
 browser = webdriver.Firefox()
 browser.get("https://maps.google.com")
 search_box = browser.find_element(value="searchboxinput")
+time.sleep(5)
+
 
 for combination in all_combinations:
     search_box.send_keys(f"{combination[0]} to {combination[1]}")
     search_box.send_keys(Keys.ENTER)
+    time.sleep(5)
 
-    browser.find_element(by=By.jstcache, value="1115")
+    # hrs = browser.find_element(by=By.XPATH, value='//*[@jstcache="1115"]/span')
+    hrs = browser.find_element_by_xpath('//span[@jstcache="1115"]')
+    time.sleep(5)
+    print(hrs.text)
+    break
 
 
 
