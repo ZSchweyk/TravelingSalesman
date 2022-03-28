@@ -20,8 +20,7 @@ colleges = [
 google_maps_searches = []
 for i, college in enumerate(colleges):
     for j in range(i + 1, len(colleges)):
-        search = college + " to " + colleges[j]
-        google_maps_searches.append(search)
+        google_maps_searches.append((college, colleges[j]))
 
 
 
