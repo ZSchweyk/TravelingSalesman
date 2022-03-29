@@ -37,13 +37,10 @@ for college in college_nodes:
         if college == combination[0]:
             r = requests.get(url + 'origins = ' + college.name +
                              '&destinations = ' + combination[1].name +
-                             '&key = ' + api_key)
-            x = r.json()
-            print(x)
-            x = x['rows'][0]['elements'][0]
+                             '&key = ' + api_key).json()
+            info = r['rows'][0]['elements'][0]
 
-
-            college.cost_to(combination[1], distance=r["distance"]["value"], time=r["duration"]["value"] / (60 * 60))
+            college.cost_to(combination[1], distance=info["distance"]["value"], time=info["duration"]["value"] / (60 * 60))
 
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
