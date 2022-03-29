@@ -1,66 +1,50 @@
+import random
 import time
 from itertools import combinations
-
-# from selenium.webdriver.common.by import By
-
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
-#
-# colleges = [
-#     "Harvard University",
-#     "Princeton University",
-#     "Yale University",
-#     "University of Rochester",
-#     "Rochester Institute of Technology",
-#     "Johns Hopkins",
-#     "Georgia Institute of Technology",
-#     "Cornell University",
-#     "University of Pennsylvania",
-#     "Tufts University",
-#     "Duke University",
-#     "Brown University",
-# ]
-#
-# all_combinations = list(combinations(colleges, 2))
-# print(all_combinations)
-#
-# browser = webdriver.Chrome()
-# browser.get("https://maps.google.com")
-# search_box = browser.find_element(value="searchboxinput")
-# time.sleep(5)
-#
-#
-# for combination in all_combinations:
-#     search_box.send_keys(f"{combination[0]} to {combination[1]}")
-#     search_box.send_keys(Keys.ENTER)
-#     time.sleep(5)
-#
-#     # hrs = browser.find_element(by=By.XPATH, value='//*[@jstcache="1115"]/span')
-#     hrs = browser.find_element_by_xpath('//span[@jstcache="1115"]')
-#     time.sleep(5)
-#     print(hrs.text)
-#     break
-
+import requests, json
+# https://www.geeksforgeeks.org/python-calculate-distance-duration-two-places-using-google-distance-matrix-api/
 
 from node_class import Node
 from tsp_class import TravelingSalesman
 
 
-a = Node("A")
-b = Node("B")
-c = Node("C")
-d = Node("D")
+colleges = [
+    "Harvard University",
+    "Princeton University",
+    "Yale University",
+    "University of Rochester",
+    "Rochester Institute of Technology",
+    "Johns Hopkins",
+    "Georgia Institute of Technology",
+    "Cornell University",
+    "University of Pennsylvania",
+    "Tufts University",
+    # "Duke University",
+    # "Brown University",
+]
 
 Node.bi_directional = True
 
-a.cost_to(b, distance=20, time=20)
-a.cost_to(c, distance=10, time=10)
-a.cost_to(d, distance=12, time=12)
+college_nodes = [Node(college) for college in colleges]
 
-b.cost_to(c, distance=15, time=15)
-b.cost_to(d, distance=11, time=11)
+all_combinations = list(combinations(college_nodes, 2))
 
-c.cost_to(d, distance=17, time=17)
+api_key = "AIzaSyD3YANW_cRnM-TinIgfUjtP8TWNgFIj1K8"
+url ='https://maps.googleapis.com/maps/api/distancematrix/json?'
 
-tsp = TravelingSalesman([a, b, c, d])
-print(tsp.brute_force(start=a, end=a, method="distance"))
+for college in college_nodes:
+    for combination in all_combinations:
+        if college == combination[0]:
+            r = requests.get(url + 'origins = ' + college.name +
+                             '&destinations = ' + combination[1].name +
+                             '&key = ' + api_key).json()
+            info = r['rows'][0]['elements'][0]
+
+            college.cost_to(combination[1], distance=info["distance"]["value"], time=info["duration"]["value"] / (60 * 60))
+
+graph = TravelingSalesman(college_nodes)
+print("Created graph")
+print("Starting brute force algorithm...")
+shortest_path = graph.brute_force(start="University of Rochester", end="University of Rochester", method="distance")
+print("Shortest Path:", shortest_path)
+
