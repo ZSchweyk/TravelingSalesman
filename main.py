@@ -25,15 +25,12 @@ colleges = [
 Node.bi_directional = True
 
 college_nodes = [Node(college) for college in colleges]
-print(college_nodes)
 
 all_combinations = list(combinations(college_nodes, 2))
-print(all_combinations)
 
 for college in college_nodes:
     for combination in all_combinations:
         if college == combination[0]:
-            print("Added cost")
             college.cost_to(combination[1], distance=10, time=10)
 
 graph = TravelingSalesman(college_nodes)
