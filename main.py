@@ -22,28 +22,23 @@ colleges = [
     "Brown University",
 ]
 
-all_combinations = list(combinations(colleges, 2))
-print(all_combinations)
-
-
-
-
-
-a = Node("A")
-b = Node("B")
-c = Node("C")
-d = Node("D")
-
 Node.bi_directional = True
 
-a.cost_to(b, distance=20, time=20)
-a.cost_to(c, distance=10, time=10)
-a.cost_to(d, distance=12, time=12)
+college_nodes = [Node(college) for college in colleges]
+print(college_nodes)
 
-b.cost_to(c, distance=15, time=15)
-b.cost_to(d, distance=11, time=11)
+all_combinations = list(combinations(college_nodes, 2))
+print(all_combinations)
 
-c.cost_to(d, distance=17, time=17)
+for college in college_nodes:
+    for combination in all_combinations:
+        if college == combination[0]:
+            print("Added cost")
+            college.cost_to(combination[1], distance=10, time=10)
 
-tsp = TravelingSalesman([a, b, c, d])
-print(tsp.brute_force(start=a, end=a, method="distance"))
+graph = TravelingSalesman(college_nodes)
+print("Created graph")
+print("Starting brute force algorithm...")
+shortest_path = graph.brute_force(start="University of Rochester", end="University of Rochester", method="distance")
+print("Shortest Path:", shortest_path)
+

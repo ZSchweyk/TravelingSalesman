@@ -10,19 +10,23 @@ class TravelingSalesman:
     def brute_force(self, **kwargs):
         convert_str_to_node = lambda string: [node for node in self.nodes if node.name == kwargs[string]][0]
         if isinstance(kwargs["start"], str):
-            start = convert_str_to_node["start"]
+            start = convert_str_to_node("start")
         else:
             start = kwargs["start"]
         if isinstance(kwargs["end"], str):
-            end = convert_str_to_node["end"]
+            end = convert_str_to_node("end")
         else:
             end = kwargs["end"]
 
         method = kwargs["method"]
-        all_permutations = permutations([node for node in self.nodes if node != start and node != end])
+        all_permutations = list(permutations([node for node in self.nodes if node != start and node != end]))
 
         paths = {}
+        count = 1
         for permutation in all_permutations:
+            print(f"{round(count/len(all_permutations) * 100, 2)}% Complete")
+            count += 1
+
             total_cost = 0
             for i in range(len(permutation)):
                 if i == len(permutation) - 1:
