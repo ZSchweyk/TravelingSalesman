@@ -38,6 +38,7 @@ for college in college_nodes:
             r = requests.get(url + 'origins = ' + college.name +
                              '&destinations = ' + combination[1].name +
                              '&key = ' + api_key).json()
+            print(r)
             info = r['rows'][0]['elements'][0]
 
             college.cost_to(combination[1], distance=info["distance"]["value"], time=info["duration"]["value"] / (60 * 60))
