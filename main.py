@@ -29,7 +29,7 @@ college_nodes = [Node(college) for college in colleges]
 
 all_combinations = list(combinations(college_nodes, 2))
 
-api_key = "AIzaSyD3YANW_cRnM-TinIgfUjtP8TWNgFIj1K8"
+api_key = "hehehe"
 url ='https://maps.googleapis.com/maps/api/distancematrix/json?'
 
 for college in college_nodes:
