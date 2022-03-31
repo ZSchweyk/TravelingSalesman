@@ -52,13 +52,15 @@ for college in college_nodes:
             # New Page with Results
             driving_distance = float(
                 browser.find_element(by=By.ID, value="drvDistance").text.split(sep=" ")[0])  # miles
-            print(f"{driving_distance=}")
             driving_duration = browser.find_element(by=By.ID, value="drvDuration").text.split(sep=" ")
-            print(f"{driving_duration=}")
             driving_duration = int(driving_duration[0]) + float(driving_duration[2]) / 60  # hours
             college.cost_to(combination[1], distance=driving_distance, time=driving_duration)
 
             browser.back()
+
+            loc1_field = browser.find_element(by=By.ID, value="placename1")
+            loc2_field = browser.find_element(by=By.ID, value="placename2")
+            submit_button = browser.find_elements(by=By.TAG_NAME, value="button")[1]
 
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
