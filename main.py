@@ -1,11 +1,10 @@
 import random
 import time
 from itertools import combinations
-import requests, json
-# https://www.geeksforgeeks.org/python-calculate-distance-duration-two-places-using-google-distance-matrix-api/
-
 from node_class import Node
 from tsp_class import TravelingSalesman
+# https://www.geeksforgeeks.org/python-calculate-distance-duration-two-places-using-google-distance-matrix-api/
+# https://distancecalculator.globefeed.com/US_Distance_Calculator.asp
 
 
 colleges = [
@@ -23,25 +22,20 @@ colleges = [
     # "Brown University",
 ]
 
+
+
+
+
+
 Node.bi_directional = True
-
 college_nodes = [Node(college) for college in colleges]
-
 all_combinations = list(combinations(college_nodes, 2))
-
-api_key = "AIzaSyCSjOV-6turv4kdsPNrDY8j-wicM77hbIU"
-url ='https://maps.googleapis.com/maps/api/distancematrix/json?'
 
 for college in college_nodes:
     for combination in all_combinations:
         if college == combination[0]:
-            r = requests.get(url + 'origins = ' + college.name +
-                             '&destinations = ' + combination[1].name +
-                             '&key = ' + api_key).json()
-            print(r)
-            info = r['rows'][0]['elements'][0]
 
-            college.cost_to(combination[1], distance=info["distance"]["value"], time=info["duration"]["value"] / (60 * 60))
+            college.cost_to(combination[1], distance=10, time=10)
 
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
