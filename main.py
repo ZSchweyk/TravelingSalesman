@@ -29,6 +29,23 @@ colleges = [
     # "Brown University",
 ]
 
+
+
+
+
+
+def get_hours(string: str):
+    string_list = string.split()
+    if len(string_list) == 4:
+        hours = int(string_list[0])
+        minutes = int(string_list[2])
+        return hours + minutes / 60
+    elif len(string_list) == 2:
+        if string_list[1] == "minutes":
+            return int(string_list[0]) / 60
+        else:
+            return int(string_list[0])
+
 browser = webdriver.Chrome()
 browser.get("https://distancecalculator.globefeed.com/US_Distance_Calculator.asp")
 
