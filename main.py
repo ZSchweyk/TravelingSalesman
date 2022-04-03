@@ -49,18 +49,24 @@ for college in college_nodes:
             # webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
             submit_button.click()
 
+            time.sleep(2)
+
             # New Page with Results
             driving_distance = float(
-                browser.find_element(by=By.ID, value="drvDistance").text.split(sep=" ")[0])  # miles
-            driving_duration = browser.find_element(by=By.ID, value="drvDuration").text.split(sep=" ")
+                browser.find_element(by=By.ID, value="drvDistance").text.split()[0])  # miles
+            driving_duration = browser.find_element(by=By.ID, value="drvDuration").text.split()
             driving_duration = int(driving_duration[0]) + float(driving_duration[2]) / 60  # hours
             college.cost_to(combination[1], distance=driving_distance, time=driving_duration)
 
             browser.back()
 
+            time.sleep(2)
+
             loc1_field = browser.find_element(by=By.ID, value="placename1")
             loc2_field = browser.find_element(by=By.ID, value="placename2")
             submit_button = browser.find_elements(by=By.TAG_NAME, value="button")[1]
+
+            time.sleep(2)
 
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
