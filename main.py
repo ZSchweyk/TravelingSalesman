@@ -9,19 +9,11 @@ from selenium.webdriver.common.by import By
 import selenium.common.exceptions
 from selenium.webdriver.chrome.options import Options
 
+from locations import all_locations
+
 # https://distancecalculator.globefeed.com/US_Distance_Calculator.asp
 
-colleges = [
-    "University of Rochester",
-    "Rochester Institute of Technology",
-    "Johns Hopkins",
-    "Georgia Institute of Technology",
-    # "Cornell University",
-    # "University of Pennsylvania",
-    # "Tufts University",
-    # "Duke University",
-    # "Brown University",
-]
+
 
 
 def get_hours(string: str):
@@ -49,14 +41,14 @@ loc2_field = browser.find_element(by=By.ID, value="placename2")
 submit_button = browser.find_elements(by=By.TAG_NAME, value="button")[1]
 
 Node.bi_directional = True
-college_nodes = [Node(college) for college in colleges]
-all_combinations = list(combinations(college_nodes, 2))
+location_nodes = [Node(location) for location in all_locations]
+all_combinations = list(combinations(location_nodes, 2))
 
-for college in college_nodes:
+for location in location_nodes:
     for combination in all_combinations:
-        if college == combination[0]:
-            print(f"Calculating distance between {college.name} and {combination[1].name}...")
-            loc1_field.send_keys(college.name)
+        if location == combination[0]:
+            print(f"Calculating distance between {location.name} and {combination[1].name}...")
+            loc1_field.send_keys(location.name)
             # webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
             loc2_field.send_keys(combination[1].name)
             # webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
@@ -69,7 +61,7 @@ for college in college_nodes:
                         browser.find_element(by=By.ID, value="drvDistance").text.split()[0])  # miles
                     driving_duration = browser.find_element(by=By.ID, value="drvDuration").text
                     driving_duration = get_hours(driving_duration)
-                    college.cost_to(combination[1], distance=driving_distance, time=driving_duration)
+                    location.cost_to(combination[1], distance=driving_distance, time=driving_duration)
                     break
                 except:
                     continue
@@ -85,7 +77,7 @@ for college in college_nodes:
                 except selenium.common.exceptions.NoSuchElementException:
                     continue
 
-graph = TravelingSalesman(college_nodes)
+graph = TravelingSalesman(location_nodes)
 print("Created graph")
 print("Starting brute force algorithm...")
 shortest_path = graph.brute_force(
