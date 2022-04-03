@@ -30,10 +30,6 @@ colleges = [
 ]
 
 
-
-
-
-
 def get_hours(string: str):
     string_list = string.split()
     if len(string_list) == 4:
@@ -45,6 +41,7 @@ def get_hours(string: str):
             return int(string_list[0]) / 60
         else:
             return int(string_list[0])
+
 
 browser = webdriver.Chrome()
 browser.get("https://distancecalculator.globefeed.com/US_Distance_Calculator.asp")
@@ -66,24 +63,34 @@ for college in college_nodes:
             # webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
             submit_button.click()
 
-            time.sleep(2)
+            # time.sleep(2)
 
             # New Page with Results
-            driving_distance = float(
-                browser.find_element(by=By.ID, value="drvDistance").text.split()[0])  # miles
-            driving_duration = browser.find_element(by=By.ID, value="drvDuration").text.split()
-            driving_duration = int(driving_duration[0]) + float(driving_duration[2]) / 60  # hours
-            college.cost_to(combination[1], distance=driving_distance, time=driving_duration)
+            while True:
+                try:
+                    driving_distance = float(
+                        browser.find_element(by=By.ID, value="drvDistance").text.split()[0])  # miles
+                    driving_duration = browser.find_element(by=By.ID, value="drvDuration").text
+                    driving_duration = get_hours(driving_duration)
+                    college.cost_to(combination[1], distance=driving_distance, time=driving_duration)
+                    break
+                except:
+                    continue
 
             browser.back()
 
-            time.sleep(2)
+            # time.sleep(2)
 
-            loc1_field = browser.find_element(by=By.ID, value="placename1")
-            loc2_field = browser.find_element(by=By.ID, value="placename2")
-            submit_button = browser.find_elements(by=By.TAG_NAME, value="button")[1]
+            while True:
+                try:
+                    loc1_field = browser.find_element(by=By.ID, value="placename1")
+                    loc2_field = browser.find_element(by=By.ID, value="placename2")
+                    submit_button = browser.find_elements(by=By.TAG_NAME, value="button")[1]
+                    break
+                except selenium.common.exceptions.NoSuchElementException:
+                    continue
 
-            time.sleep(2)
+            # time.sleep(2)
 
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
