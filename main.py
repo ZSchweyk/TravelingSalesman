@@ -9,11 +9,11 @@ from selenium.webdriver.common.by import By
 import selenium.common.exceptions
 from selenium.webdriver.chrome.options import Options
 
-from locations import all_locations
-
 # https://distancecalculator.globefeed.com/US_Distance_Calculator.asp
 
-
+with open('locations.txt', 'r') as file:
+    all_locations = file.read().replace("\n", ";")
+    all_locations = all_locations.split(sep=";")
 
 
 def get_hours(string: str):
