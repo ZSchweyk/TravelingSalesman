@@ -16,13 +16,12 @@ class Node:
 
     def cost_to(self, node, **kwargs):
         """Accepts the node object or node.name as node, and modifies the branch of self accordingly."""
-        cost = {"distance": kwargs["distance"], "time": kwargs["time"]}
         if isinstance(node, Node):
-            self.branches[node] = cost
-            if self.bi_directional: node.branches[self] = cost
+            self.branches[node] = kwargs
+            if self.bi_directional: node.branches[self] = kwargs
         elif isinstance(node, str):
-            self.branches[self.names[node]] = cost
-            if self.bi_directional: self.names[node].branches[self] = cost
+            self.branches[self.names[node]] = kwargs
+            if self.bi_directional: self.names[node].branches[self] = kwargs
 
     def get_branches(self):
         """Get the branches of a node."""

@@ -1,15 +1,13 @@
-import random
-import time
+# import random
+# import time
 from itertools import combinations
-
-from selenium.webdriver.chrome.options import Options
-
 from node_class import Node
 from tsp_class import TravelingSalesman
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import selenium.common.exceptions
+from selenium.webdriver.chrome.options import Options
 
 # https://distancecalculator.globefeed.com/US_Distance_Calculator.asp
 
@@ -64,8 +62,6 @@ for college in college_nodes:
             # webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
             submit_button.click()
 
-            # time.sleep(2)
-
             # New Page with Results
             while True:
                 try:
@@ -80,8 +76,6 @@ for college in college_nodes:
 
             browser.back()
 
-            # time.sleep(2)
-
             while True:
                 try:
                     loc1_field = browser.find_element(by=By.ID, value="placename1")
@@ -90,8 +84,6 @@ for college in college_nodes:
                     break
                 except selenium.common.exceptions.NoSuchElementException:
                     continue
-
-            # time.sleep(2)
 
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
