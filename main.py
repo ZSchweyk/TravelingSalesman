@@ -96,5 +96,9 @@ for college in college_nodes:
 graph = TravelingSalesman(college_nodes)
 print("Created graph")
 print("Starting brute force algorithm...")
-shortest_path = graph.brute_force(start="University of Rochester", end="University of Rochester", method="distance")
-print("Shortest Path:", shortest_path)
+shortest_path = graph.brute_force(
+    start="University of Rochester",
+    end="University of Rochester",
+    methods=["time", "distance"]
+)
+print(shortest_path)
