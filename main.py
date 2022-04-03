@@ -2,29 +2,25 @@ import random
 import time
 from itertools import combinations
 
-import selenium.common.exceptions
+from selenium.webdriver.chrome.options import Options
 
 from node_class import Node
 from tsp_class import TravelingSalesman
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import selenium.common.exceptions
 
-# https://www.geeksforgeeks.org/python-calculate-distance-duration-two-places-using-google-distance-matrix-api/
 # https://distancecalculator.globefeed.com/US_Distance_Calculator.asp
 
-
 colleges = [
-    "Harvard University",
-    "Princeton University",
-    "Yale University",
     "University of Rochester",
     "Rochester Institute of Technology",
     "Johns Hopkins",
     "Georgia Institute of Technology",
-    "Cornell University",
-    "University of Pennsylvania",
-    "Tufts University",
+    # "Cornell University",
+    # "University of Pennsylvania",
+    # "Tufts University",
     # "Duke University",
     # "Brown University",
 ]
@@ -43,7 +39,11 @@ def get_hours(string: str):
             return int(string_list[0])
 
 
-browser = webdriver.Chrome()
+options = Options()
+options.headless = True
+# options.binary_location = ""
+
+browser = webdriver.Chrome(options=options)
 browser.get("https://distancecalculator.globefeed.com/US_Distance_Calculator.asp")
 
 loc1_field = browser.find_element(by=By.ID, value="placename1")
@@ -57,6 +57,7 @@ all_combinations = list(combinations(college_nodes, 2))
 for college in college_nodes:
     for combination in all_combinations:
         if college == combination[0]:
+            print(f"Calculating distance between {college.name} and {combination[1].name}...")
             loc1_field.send_keys(college.name)
             # webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
             loc2_field.send_keys(combination[1].name)
